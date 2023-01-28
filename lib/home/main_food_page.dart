@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery/home/food_page_body.dart';
 import 'package:food_delivery/utils/colors.dart';
+import 'package:food_delivery/widgets/big_text.dart';
+import 'package:food_delivery/widgets/small_text.dart';
 
 
 class MainFoodPage extends StatefulWidget {
@@ -26,8 +29,15 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     // Country Name and City Name section in Header
                     Column(
                       children: [
-                        Text("Country"),
-                        Text("City")
+                        // Reusable Text Widget is used here
+                        BigText(text: "Pakistan" , color: AppColors.mainColor, ),
+
+                        Row(
+                          children: [
+                            SmallText(text: "Karachi", color: Colors.black54),
+                            Icon(Icons.arrow_drop_down_rounded)
+                          ],
+                        )
 
                       ],
                     ),
@@ -47,6 +57,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ),
               )
           ),
+          FoodPageBody(),
         ],
       ),
     );
