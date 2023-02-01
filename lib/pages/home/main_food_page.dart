@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:food_delivery/home/food_page_body.dart';
+import 'package:food_delivery/pages/home/food_page_body.dart';
 import 'package:food_delivery/utils/colors.dart';
+import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/small_text.dart';
 
@@ -16,13 +17,16 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
+    print("The size of the Screen is"+ MediaQuery.of(context).size.height.toString());
+
     return Scaffold(
       body: Column(
         children: [
+          // header of our app in which we have search button and Location
           Container(
               child: Container(
-                margin: EdgeInsets.only(top: 45, bottom: 15),
-                padding: EdgeInsets.only(left: 20, right: 20),
+                margin: EdgeInsets.only(top: Dimension.height45, bottom: Dimension.height15),
+                padding: EdgeInsets.only(left: Dimension.width20, right: Dimension.width20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,11 +48,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     // Search Icon Container
                     Center(
                       child: Container(
-                        width: 45,
-                        height: 45,
-                        child: const Icon(Icons.search, color: Colors.white,),
+                        width: Dimension.width45,
+                        height: Dimension.height45,
+                        child: Icon(Icons.search, color: Colors.white,size: Dimension.iconSize24,),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(Dimension.radius15),
                             color: AppColors.mainColor
                         ),
                       ),
@@ -57,7 +61,13 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ),
               )
           ),
-          FoodPageBody(),
+          // Showing the Body
+          Expanded(
+              child: SingleChildScrollView(
+                child: FoodPageBody(),
+
+          ),
+          ),
         ],
       ),
     );
