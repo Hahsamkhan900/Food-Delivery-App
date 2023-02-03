@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/icon_and_text.dart';
 import 'package:food_delivery/widgets/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:get/get.dart';
 
 import '../../utils/dimension.dart';
 import '../../widgets/app_colomn.dart';
@@ -48,28 +50,37 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Slide Section
-        SizedBox(
-          // color: Colors.red,
-          height: Dimension.PageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, position) {
-                return _buildPageItem(position);
-              }),
-        ),
+        // Slide Section With Dynamic Data
+        GetBuilder<PopularProductController>(builder:(popularProducts){
+          return SizedBox(
+            // color: Colors.red,
+            height: Dimension.PageView,
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.length,
+                itemBuilder: (context, position) {
+                  return _buildPageItem(position);
+                }),
+          );
+        }),
+
         // Dots Indicator
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currPage,
-          decorator: DotsDecorator(
-              activeColor: AppColors.mainColor,
-              size: const Size.square(9.0),
-              activeSize: const Size(18.0, 9.0),
-              activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimension.radius10))),
-        ),
+        GetBuilder<PopularProductController>(builder: (noOfDots){
+          return DotsIndicator(
+            dotsCount: noOfDots.popularProductList.isEmpty?1:noOfDots.popularProductList.length,
+            position: _currPage,
+            decorator: DotsDecorator(
+                activeColor: AppColors.mainColor,
+                size: const Size.square(9.0),
+                activeSize: const Size(18.0, 9.0),
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Dimension.radius10)),
+            ),
+          );
+
+        }),
+
+
         SizedBox(
           height: Dimension.height30,
         ),
