@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_colomn.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
-import 'package:food_delivery/widgets/icon_and_text.dart';
-import 'package:food_delivery/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   const PopularFoodDetail({Key? key}) : super(key: key);
@@ -41,9 +41,18 @@ class PopularFoodDetail extends StatelessWidget {
             right: Dimension.width20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppIcons(icon: Icons.arrow_back_ios),
-                AppIcons(icon: Icons.shopping_cart_outlined)
+              children: [
+                GestureDetector(
+                onTap: ()=>{
+                  Get.to(()=>MainFoodPage())
+                },
+                  child: AppIcons(icon: Icons.arrow_back_ios),
+                ),
+                GestureDetector(
+                    onTap: ()=>{
+                      Get.to(()=>MainFoodPage())
+                    },
+                    child: AppIcons(icon: Icons.shopping_cart_outlined))
 
               ],
 
