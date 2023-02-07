@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/routes/route_helper.dart';
+import 'package:food_delivery/utils/app_constant.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_colomn.dart';
@@ -9,10 +12,15 @@ import 'package:food_delivery/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<PopularProductController>().popularProductList[pageId];
+    // print("page id is" + pageId.toString());
+    // print("product name is " +  product.name.toString());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -27,7 +35,7 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/food0.png")
+                  image: NetworkImage(AppConstant.Base_URL+AppConstant.UPLOAD_URL+product.img!)
                 )
               ),
 
@@ -44,13 +52,15 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                 onTap: ()=>{
-                  Get.to(()=>MainFoodPage())
+                  //Navigation for next page
+                  Get.toNamed(RouteHelper.getInitial())
                 },
                   child: AppIcons(icon: Icons.arrow_back_ios),
                 ),
                 GestureDetector(
                     onTap: ()=>{
-                      Get.to(()=>MainFoodPage())
+                      //Navigation for next page
+                      Get.toNamed(RouteHelper.getInitial())
                     },
                     child: AppIcons(icon: Icons.shopping_cart_outlined))
 
@@ -75,14 +85,15 @@ class PopularFoodDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppColomn(text: "Chinese Side"),
+                  AppColomn(text: product.name!),
                   SizedBox(height: Dimension.height10),
                   BigText(text: "Introduce"),
                   SizedBox(height: Dimension.height10),
-                  const Expanded(
+              Expanded(
                       child: SingleChildScrollView(
                           child: ExpandableTextWidget(
-                              text: "Many historians believe that biryani originated from Persia and was brought to India by the Mughals. Biryani was further developed in the Mughal royal kitchen. the Mughal soldiers looked undernourished. In order to provide a balanced diet to the soldiers, she asked the chefs to prepare dish with meat and rice.")
+                              text: (product.description!)
+                          )
                       ),
                   ),
 
@@ -129,7 +140,7 @@ class PopularFoodDetail extends StatelessWidget {
                   color: AppColors.mainColor
               ),
               child: Container(
-                child: BigText(text: "\$10 | Add to Cart", color: Colors.white, size: Dimension.font16,),
+                child: BigText(text: "\$ ${product.price!}"+" | Add to Cart", color: Colors.white, size: Dimension.font16,),
               ),
             ),
           ],

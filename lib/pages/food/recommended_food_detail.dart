@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
-import 'package:food_delivery/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
+
   const RecommendedFoodDetails({Key? key}) : super(key: key);
 
   @override
@@ -17,15 +20,29 @@ class RecommendedFoodDetails extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            // it helps to off automated back button
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcons(
-                  icon: Icons.clear,
+                GestureDetector(
+                  // Routing for Main Page
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcons(
+                    icon: Icons.clear,
+                  ),
                 ),
-                AppIcons(
-                  icon: Icons.shopping_cart_outlined,
+                GestureDetector(
+                  // Routing on Cart System
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcons(
+                    icon: Icons.shopping_cart_outlined,
+                  ),
                 ),
               ],
             ),
@@ -34,7 +51,7 @@ class RecommendedFoodDetails extends StatelessWidget {
               child: Container(
                 child: Center(
                     child: BigText(
-                  text: "Chinese Side",
+                  text: "Chinese Sidsss",
                   size: Dimension.font26,
                 )),
                 width: double.maxFinite,

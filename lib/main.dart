@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainFoodPage(),
-      initialRoute: RouteHelper.initial,
+      home: MainFoodPage(),
+      // initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
       // home: const PopularFoodDetail(),
       // home: const RecommendedFoodDetails(),
     );
